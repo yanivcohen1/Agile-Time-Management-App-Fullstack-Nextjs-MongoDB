@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Box, Button, CircularProgress, Stack, Typography } from "@mui/material";
+import { isAxiosError } from "axios";
 import { TodoStatusSummary } from "@/components/todos/TodoStatusSummary";
 import { useSession } from "@/hooks/useAuth";
 import { useTodos } from "@/hooks/useTodos";
@@ -23,14 +24,17 @@ export default function MainPage() {
   const handleShowUserDetails = async () => {
     try {
       setIsProfileCheckPending(true);
-      const { data } = await api.get<{ user: SessionUser }>("/api/auth/profile", {
+      const { data } = await api.get<{ info: SessionUser }>("/api/auth/info", {
         // params: { scope: "admin-inspect" }
       });
-      const roleLabel = data.user.role === "admin" ? "Admin" : "User";
-      showSnackbar({ message: `${data.user.name} • ${roleLabel}`, severity: "info" });
+      const roleLabel = data.info.role === "admin" ? "Admin" : "User";
+      showSnackbar({ message: `${data.info.name} • ${roleLabel}`, severity: "info" });
     } catch (error) {
       let msg = 'server unknown error';
-      if (error instanceof Error) {
+      if (isAxiosError(error)) {
+        msg = JSON.stringify(error.response?.data ?? error.message, null, 2);
+        msg = msg === error.message ? '' : error.message + ", with msg: " + msg;
+      } else if (error instanceof Error) {
         msg = error.message;
       } else {
         msg = String(error);
