@@ -19,6 +19,7 @@ export default function LoginPage() {
               mode="login"
               isLoading={isPending}
               error={error?.message ?? null}
+              demoPrefill={{ label: "Log demo", email: "demo@todo.dev", password: "ChangeMe123!" }}
               onSubmit={async (values) => {
                 await mutateAsync(values);
                 router.replace("/dashboard");

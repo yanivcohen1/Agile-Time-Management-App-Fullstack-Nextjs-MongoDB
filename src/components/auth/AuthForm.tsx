@@ -18,16 +18,22 @@ type Props = {
   isLoading?: boolean;
   error?: string | null;
   onSubmit: (values: LoginInput | RegisterInput) => void;
+  demoPrefill?: {
+    label: string;
+    email: string;
+    password: string;
+  };
 };
 
-export function AuthForm({ mode, isLoading, error, onSubmit }: Props) {
+export function AuthForm({ mode, isLoading, error, onSubmit, demoPrefill }: Props) {
   const schema = schemaMap[mode];
   const isRegister = mode === "register";
 
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setValue
   } = useForm<LoginInput | RegisterInput>({
     resolver: zodResolver(schema),
     defaultValues: useMemo(() => ({ email: "", password: "", name: "" }), [])
@@ -79,6 +85,18 @@ export function AuthForm({ mode, isLoading, error, onSubmit }: Props) {
         <Typography variant="caption" color="text.secondary">
           Tokens refresh automatically every 15 minutes.
         </Typography>
+        {!isRegister && demoPrefill ? (
+          <Button
+            type="button"
+            size="small"
+            onClick={() => {
+              setValue("email", demoPrefill.email);
+              setValue("password", demoPrefill.password);
+            }}
+          >
+            {demoPrefill.label}
+          </Button>
+        ) : null}
       </Stack>
 
       <Button type="submit" disabled={isLoading} size="large">
