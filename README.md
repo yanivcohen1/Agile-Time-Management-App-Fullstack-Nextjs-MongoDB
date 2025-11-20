@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## EdgeStack Todos
 
-## Getting Started
+Full-stack Next.js 16 application built with Material UI, MikroORM, and MongoDB 3.4. The app implements email/password authentication, short-lived JWT access tokens with refresh rotation, rate limiting, and filterable todo lists backed by React Query.
 
-First, run the development server:
+### Stack
+
+- Next.js 16 (App Router, TypeScript)
+- Material UI 6 + Joy UI helpers
+- MikroORM + MongoDB 3.4 (no Docker dependency; connect to any Mongo instance)
+- Axios with automatic access-token refresh
+- React Hook Form + Zod validation
+- Vitest + Playwright for testing
+
+### Prerequisites
+
+- Node 20+
+- pnpm 9+
+- MongoDB 3.4-compatible instance reachable via `DATABASE_URL`
+
+### Environment
+
+Duplicate `.env.development` and `.env.production` as needed. Key variables:
+
+- `DATABASE_URL` – Mongo connection string
+- `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` – symmetric secrets
+- `JWT_ACCESS_TTL_SECONDS`, `JWT_REFRESH_TTL_SECONDS` – token lifetimes (shared across envs)
+- `RATE_LIMIT_WINDOW_MS`, `RATE_LIMIT_MAX_ATTEMPTS` – in-memory limiter controls
+- `SEED_DEMO_PASSWORD` – password used by the seed script
+
+### Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install           # install dependencies
+pnpm dev               # run Next.js in development mode
+pnpm build             # production build
+pnpm start             # serve the production build
+pnpm lint              # Next.js lint (ESLint)
+pnpm test              # Vitest unit tests
+pnpm db:seed           # seed demo user/todos via MikroORM
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Seeding
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Ensure `DATABASE_URL` and `SEED_DEMO_PASSWORD` are set, then run `pnpm db:seed`. The script wipes users/todos/refresh tokens and repopulates them with a demo account for local testing.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Development Flow
 
-## Learn More
+1. Start MongoDB (local service, container, or Atlas cluster).
+2. Configure `.env.development`.
+3. `pnpm db:seed` (optional) for demo data.
+4. `pnpm dev` to launch the Next.js dev server at `http://localhost:3000`.
 
-To learn more about Next.js, take a look at the following resources:
+### Deployment Notes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The app expects a MongoDB connection string at runtime; provide it via environment variables.
+- JWT secrets must be strong, random strings.
+- Rate limiting is in-memory and should be swapped for Redis/Upstash in multi-instance deployments.
