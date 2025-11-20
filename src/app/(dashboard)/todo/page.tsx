@@ -82,10 +82,10 @@ export default function TodoPage() {
         <Stack direction={{ xs: "column", md: "row" }} justifyContent="space-between" alignItems="center" spacing={3}>
           <div>
             <Typography variant="h4" fontWeight={700}>
-              Track statuses, search todos, and filter by due ranges.
+              Track status
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Every todo syncs with MongoDB + MikroORM for reliable persistence.
+              search todos, and filter by due ranges. Every todo syncs with MongoDB + MikroORM for reliable persistence.
             </Typography>
           </div>
           <Stack direction="row" spacing={2}>
