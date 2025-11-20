@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
@@ -9,10 +9,14 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
+  InputAdornment,
   MenuItem,
   Stack,
   TextField
 } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+import { format } from "date-fns";
 import { upsertTodoSchema, type UpsertTodoInput } from "@/lib/validation/todo";
 import type { TodoStatus } from "@/types/todo";
 
@@ -35,6 +39,7 @@ export function TodoDialog({ open, initialValues, isSaving, onClose, onSave }: P
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors }
   } = useForm<UpsertTodoInput>({
     resolver: zodResolver(upsertTodoSchema),
@@ -77,13 +82,38 @@ export function TodoDialog({ open, initialValues, isSaving, onClose, onSave }: P
               </MenuItem>
             ))}
           </TextField>
-          <TextField
-            type="date"
-            label="Due date"
-            InputLabelProps={{ shrink: true }}
-            {...register("dueDate", {
-              setValueAs: (value: string | null) => (value ? new Date(value) : undefined)
-            })}
+          <Controller
+            name="dueDate"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                type="date"
+                label="Due date"
+                value={field.value ? format(field.value, "yyyy-MM-dd") : ""}
+                onChange={(event) =>
+                  field.onChange(event.target.value ? new Date(event.target.value) : undefined)
+                }
+                onBlur={field.onBlur}
+                name={field.name}
+                inputRef={field.ref}
+                InputLabelProps={{ shrink: true }}
+                InputProps={{
+                  endAdornment: field.value ? (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="Clear due date"
+                        size="small"
+                        onClick={() => field.onChange(undefined)}
+                      >
+                        <ClearIcon fontSize="small" />
+                      </IconButton>
+                    </InputAdornment>
+                  ) : undefined
+                }}
+                error={!!errors.dueDate}
+                helperText={errors.dueDate?.message}
+              />
+            )}
           />
         </Stack>
       </DialogContent>
