@@ -10,7 +10,7 @@ import {
   Typography,
   type ChipProps
 } from "@mui/material";
-import { formatDistanceToNow } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -73,7 +73,9 @@ export function TodoList({ todos, onEdit, onDelete }: Props) {
                 <Chip icon={<Icon />} label={meta.label} color={meta.color} variant="outlined" />
                 {todo.dueDate ? (
                   <Typography variant="body2" color="text.secondary">
-                    Due {formatDistanceToNow(new Date(todo.dueDate), { addSuffix: true })}
+                    Due {format(new Date(todo.dueDate), "PP")} ·
+                    {" "}
+                    {formatDistanceToNow(new Date(todo.dueDate), { addSuffix: true })}
                   </Typography>
                 ) : null}
               </Stack>
