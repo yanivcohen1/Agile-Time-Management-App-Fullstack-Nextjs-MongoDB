@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Button, CircularProgress, Paper, Stack, Typography } from "@mui/material";
-import { InterWorkspacePanel } from "@/components/dashboard/InterWorkspacePanel";
+import { InterWorkspaceSection } from "@/components/dashboard/InterWorkspaceSection";
 import { useSession } from "@/hooks/useAuth";
 import { tokenStorage } from "@/lib/http/token-storage";
 
@@ -51,7 +51,9 @@ export default function AdminPage() {
             </Stack>
           </Paper>
 
-          <InterWorkspacePanel />
+          <Paper sx={{ p: 3, borderRadius: 3 }}>
+            <InterWorkspaceSection />
+          </Paper>
         </Stack>
       </Box>
     </main>
