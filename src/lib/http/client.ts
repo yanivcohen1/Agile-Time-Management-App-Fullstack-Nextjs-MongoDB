@@ -11,7 +11,7 @@ const api = axios.create({ baseURL });
 
 let refreshPromise: Promise<string | null> | null = null;
 
-type ErrorPayload = { message?: string };
+type ErrorPayload = { message?: string; error?: string };
 type RetriableRequestConfig = InternalAxiosRequestConfig & { __isRetryRequest?: boolean };
 
 const resolveMessage = (message: unknown, fallback: string) => {
@@ -33,7 +33,15 @@ const createErrorNotifier = () => {
   return {
     fromResponse: (response: AxiosResponse<unknown> | undefined, fallback: string) => {
       const data = response?.data as ErrorPayload | undefined;
-      notify(data?.message, fallback);
+      if (data?.message) {
+        notify(data?.message, fallback);
+        return;
+      } else if (data?.error) {
+        notify(data?.error, fallback);
+        return;
+      }
+      const data2 = JSON.stringify(response?.data ?? undefined, null, 2);
+      notify(data2, fallback);
     },
     fromMessage: (message: unknown, fallback: string) => notify(message, fallback)
   };
@@ -96,7 +104,11 @@ api.interceptors.response.use(
         }
       } catch (refreshError) {
         if (axios.isAxiosError(refreshError)) {
-          notifyFromResponse(refreshError.response, refreshFallback);
+          if(refreshError.response) {
+            notifyFromResponse(refreshError.response, refreshFallback);
+          } else {
+            notifyFromMessage(refreshError.message, refreshFallback);
+          }
         } else {
           notifyFromMessage(null, refreshFallback);
         }
