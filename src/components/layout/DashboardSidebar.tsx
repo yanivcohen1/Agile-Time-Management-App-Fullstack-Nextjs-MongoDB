@@ -44,7 +44,7 @@ export function DashboardSidebar({ onNavigate }: DashboardSidebarProps) {
   const { data: session } = useSession();
   const { mutateAsync: logout, isPending: isLoggingOut } = useLogout();
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({
-    Admin: true
+    Admin: false
   });
 
   const initials = useMemo(() => {
@@ -155,7 +155,7 @@ export function DashboardSidebar({ onNavigate }: DashboardSidebarProps) {
             );
           }
 
-          const isExpanded = expandedGroups[item.label] ?? true;
+          const isExpanded = expandedGroups[item.label] ?? false;
 
           return (
             <Box key={item.label}>
