@@ -93,6 +93,9 @@ Use the Todo page "Show user info" button to verify which account is active; the
 │   └── types/             # Shared TypeScript models
 ├── tests/                 # E2E Playwright specs
 ├── eslint.config.mjs      # Next.js lint configuration
+├── mikro-orm.config.ts    # MikroORM + Mongo connection + seeding config
 ├── next.config.ts         # Next.js runtime config
+├── playwright.config.ts   # Playwright runner configuration
+├── vitest.config.ts       # Vitest test runner configuration
 └── package.json           # Scripts and dependencies
 ```
