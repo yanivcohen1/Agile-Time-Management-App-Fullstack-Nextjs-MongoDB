@@ -42,7 +42,7 @@ Duplicate `.env.development` and `.env.production` as needed. Key variables:
 ### Scripts
 
 ```bash
-pnpm install           # install dependencies
+pnpm install           # install dependencies 
 pnpm dev               # run Next.js in development mode
 pnpm build             # production build
 pnpm start             # serve the production build
