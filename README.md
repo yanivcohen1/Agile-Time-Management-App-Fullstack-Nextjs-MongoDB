@@ -106,4 +106,11 @@ Use the Todo page "Show user info" button to verify which account is active; the
 
 <img width="2689" height="1610" alt="image" src="https://github.com/user-attachments/assets/44c559b9-a1a7-4998-b2ed-709f3b38bb6d" />
 
+### Ligth mode
+
+<img width="1600" height="1198" alt="image" src="https://github.com/user-attachments/assets/fc6f0648-c4db-473c-861e-242d1681c5cd" />
+
+### mobile mode
+
+<img width="1350" height="1764" alt="image" src="https://github.com/user-attachments/assets/50ba6a53-87b6-47a3-aa83-96796c7b6d72" />
 
