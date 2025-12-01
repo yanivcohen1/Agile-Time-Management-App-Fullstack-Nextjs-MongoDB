@@ -21,6 +21,7 @@ export function AdminPageTransition({ children }: { children: ReactNode }) {
         nodeRef={nodeRef}
         classNames="slide"
         timeout={500}
+        exit={false}
         unmountOnExit
       >
         <div ref={nodeRef} style={{ width: "100%" }}>
