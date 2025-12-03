@@ -1,14 +1,17 @@
 "use client";
 
 import { DragEvent } from "react";
-import { Box, Card, CardContent, Chip, Container, Grid, Paper, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Card, CardContent, Chip, Container, Grid, Paper, Stack, Typography, useTheme, Button } from "@mui/material";
 import { useTodos, useUpdateTodo } from "@/hooks/useTodos";
 import { TodoStatus, TODO_STATUSES } from "@/types/todo";
+import { tokenStorage } from "@/lib/http/token-storage";
+import { useSession } from "@/hooks/useAuth";
 
 export default function AgilePage() {
   const { data, isLoading } = useTodos({});
   const { mutate: updateTodo } = useUpdateTodo();
   const theme = useTheme();
+  const { data: session, isLoading: sessionLoading, isError: sessionError } = useSession();
 
   const handleDragStart = (e: DragEvent<HTMLDivElement>, todoId: string) => {
     e.dataTransfer.setData("todoId", todoId);
@@ -41,6 +44,18 @@ export default function AgilePage() {
       <Container maxWidth="xl" sx={{ py: 4 }}>
         <Typography>Loading...</Typography>
       </Container>
+    );
+  }
+
+  const hasToken = !!tokenStorage.getAccessToken();
+  if ((!hasToken || sessionError) && !sessionLoading) {
+    return (
+      <Stack alignItems="center" justifyContent="center" minHeight="70vh" spacing={2}>
+        <Typography variant="h5">Please sign in to manage your todos.</Typography>
+        <Button href="/login" variant="contained">
+          Go to login
+        </Button>
+      </Stack>
     );
   }
 
