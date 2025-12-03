@@ -126,7 +126,7 @@ Reports include test results, screenshots of failures, and detailed logs. The HT
 
 ### Main Page
 
-<img width="1906" height="1442" alt="image" src="https://github.com/user-attachments/assets/4c135f6b-b84f-4d35-b34b-b34cb7ef1c2a" />
+<img width="1860" height="1436" alt="image" src="https://github.com/user-attachments/assets/85324d45-81f6-486f-8494-d3fbc2819173" />
 
 ### Track Status
 
