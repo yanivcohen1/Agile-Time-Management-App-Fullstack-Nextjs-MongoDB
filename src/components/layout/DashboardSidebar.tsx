@@ -30,7 +30,7 @@ type NavItem = {
 const navItems: NavItem[] = [
   { label: "Main", icon: <HomeRoundedIcon />, href: "/main" },
   { label: "Todo", icon: <ChecklistRoundedIcon />, href: "/todo" },
-  { label: "Jira", icon: <ViewWeekRoundedIcon />, href: "/jira" },
+  { label: "Agile", icon: <ViewWeekRoundedIcon />, href: "/agile" },
   {
     label: "Admin",
     icon: <ShieldRoundedIcon />,

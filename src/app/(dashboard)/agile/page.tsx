@@ -5,7 +5,7 @@ import { Box, Card, CardContent, Chip, Container, Grid, Paper, Stack, Typography
 import { useTodos, useUpdateTodo } from "@/hooks/useTodos";
 import { TodoStatus, TODO_STATUSES } from "@/types/todo";
 
-export default function JiraPage() {
+export default function AgilePage() {
   const { data, isLoading } = useTodos({});
   const { mutate: updateTodo } = useUpdateTodo();
   const theme = useTheme();
