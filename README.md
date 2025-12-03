@@ -1,6 +1,6 @@
 ## Time-Management-App
 
-Full-stack Next.js 16 application built with Material UI, MikroORM, and MongoDB 3.4 and Cypress(E2E) and Vite. The app implements email/password authentication, short-lived JWT access tokens with refresh rotation, rate limiting, and filterable todo lists backed by React Query.
+Full-stack Next.js(React) 16 application built with Material UI, MikroORM, and MongoDB 3.4 and Cypress(E2E) and Vite. The app implements email/password authentication, short-lived JWT access tokens with refresh rotation, rate limiting, and filterable todo lists backed by React Query.
 
 ### Stack
 
