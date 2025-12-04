@@ -160,31 +160,22 @@ export function AdminLayout({ children }: AdminLayoutProps) {
                 label={interWorkspaceEnabled ? "User workspace enabled" : "User workspace disabled"}
               />
             </Stack>
-
-            <Paper sx={{ p: 3, borderRadius: 3 }}>
-              <Stack spacing={1.5}>
-                <Typography variant="h6">Security overview</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Surface guardrail metrics, API quotas, and access history here as data sources become available.
-                </Typography>
-              </Stack>
-            </Paper>
-              <Stack spacing={3}>
-                {adminId ? (
-                  <AdminProvider>
-                    <AdminOverviewCard adminId={adminId} key={adminId}/>
-                    {userId ? (
-                      <>
-                        <UserOverviewCard userId={userId} queryId={queryId} queryName={queryName} />
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </AdminProvider>
-                ) : (
-                  <></>
-                )}
-              </Stack>
+            <Stack spacing={3}>
+              {adminId ? (
+                <AdminProvider>
+                  <AdminOverviewCard adminId={adminId} key={adminId}/>
+                  {userId ? (
+                    <>
+                      <UserOverviewCard userId={userId} queryId={queryId} queryName={queryName} />
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </AdminProvider>
+              ) : (
+                <></>
+              )}
+            </Stack>
           </Stack>
         </Box>
       </main>
