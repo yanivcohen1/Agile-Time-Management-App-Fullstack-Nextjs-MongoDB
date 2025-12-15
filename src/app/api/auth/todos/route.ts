@@ -18,7 +18,14 @@ const buildFilter = (params: URLSearchParams, viewer: User): FilterQuery<Todo> =
     dueEnd: params.get("dueEnd") || undefined
   });
 
-  const filter: FilterQuery<Todo> = viewer.role === "admin" ? {} : { owner: viewer };
+  const filter: FilterQuery<Todo> = {};
+
+  const userId = params.get("userId");
+  if (userId && viewer.role === "admin") {
+    filter.owner = userId;
+  } else if (viewer.role !== "admin") {
+    filter.owner = viewer;
+  }
 
   if (parsed.status) {
     filter.status = parsed.status;
