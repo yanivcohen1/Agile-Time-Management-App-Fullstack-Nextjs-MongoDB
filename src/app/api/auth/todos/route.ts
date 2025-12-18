@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { handleError, json } from "@/lib/api/http";
+import { handleError, json, ApiError } from "@/lib/api/http";
 import { requireUserWithRoles } from "@/lib/api/auth";
 import { todoFilterSchema, createTodoSchema } from "@/lib/validation/todo";
 import { getEntityManager } from "@/lib/db/client";
@@ -21,6 +21,9 @@ const buildFilter = (params: URLSearchParams, viewer: User): FilterQuery<Todo> =
   const filter: FilterQuery<Todo> = {};
 
   const userId = params.get("userId");
+  if (userId && viewer.role !== "admin") {
+    throw new ApiError(404, "Admin required to filter by userId");
+  }
   if (userId && viewer.role === "admin") {
     filter.owner = userId;
   } else if (viewer.role !== "admin") {
