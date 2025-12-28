@@ -117,6 +117,10 @@ export function DashboardSidebar({ onNavigate }: DashboardSidebarProps) {
       if (!hrefPath) {
         return false;
       }
+      // Special case: if href is "/admin" and pathname starts with "/admin/inner", don't select
+      if (hrefPath === "/admin" && pathname.startsWith("/admin/inner")) {
+        return false;
+      }
       return pathname === hrefPath || pathname.startsWith(`${hrefPath}/`);
     }
 
