@@ -92,6 +92,31 @@ async function seed() {
     const entity = em.create(Todo, { ...todo, owner: adminUser, createdAt: new Date(), updatedAt: new Date() });
     em.persist(entity);
   });
+
+  // Add some todos for the regular user
+  const userTodos = [
+    {
+      title: "Review project documentation",
+      description: "Go through the README and architecture docs.",
+      status: TODO_STATUSES[0],
+      dueDate: new Date(Date.now() + 1000 * 60 * 60 * 48),
+      duration: 1,
+      tags: ["documentation"]
+    },
+    {
+      title: "Test user authentication",
+      description: "Verify login and registration flows work correctly.",
+      status: TODO_STATUSES[1],
+      duration: 2,
+      tags: ["testing", "auth"]
+    }
+  ];
+
+  userTodos.forEach((todo) => {
+    const entity = em.create(Todo, { ...todo, owner: regularUser, createdAt: new Date(), updatedAt: new Date() });
+    em.persist(entity);
+  });
+
   await em.flush();
 
   await orm.close(true);
