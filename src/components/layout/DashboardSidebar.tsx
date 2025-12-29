@@ -36,7 +36,7 @@ const navItems: NavItem[] = [
     icon: <ShieldRoundedIcon />,
     children: [
       { label: "Console", icon: <ShieldRoundedIcon />, href: "/admin" },
-      { label: "Workspace", icon: <DescriptionRoundedIcon />, href: "/admin/inner/2?id=1&name=yar" }
+      { label: "Workspace", icon: <DescriptionRoundedIcon />, href: "/admin/workspace/2?id=1&name=yar" }
     ]
   }
 ];
