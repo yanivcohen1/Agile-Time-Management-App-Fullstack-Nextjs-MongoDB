@@ -64,7 +64,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         icon: "pi pi-shield",
         command: () => {
           setActiveView("admin");
-          router.push("/admin/1");
+          router.push("/admin/console/1");
         }
       },
       {
@@ -72,7 +72,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
         icon: "pi pi-user",
         command: () => {
           setActiveView("user");
-          router.push("/admin/3/user/2?id=1&name=yar");
+          router.push("/admin/console/3/user/2?id=1&name=yar");
         }
       }
     ],

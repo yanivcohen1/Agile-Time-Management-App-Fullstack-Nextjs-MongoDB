@@ -14,10 +14,10 @@ export default function AdminPage() {
           Use the breadcrumb above to jump straight to the canonical admin record or drill into the linked user profile.
         </Typography>
         <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5}>
-          <Button component={Link} href="/admin/1" variant="contained">
+          <Button component={Link} href="/admin/console/1" variant="contained">
             View admin #1
           </Button>
-          <Button component={Link} href="/admin/3/user/2?id=1&name=yar" variant="outlined">
+          <Button component={Link} href="/admin/console/3/user/2?id=1&name=yar" variant="outlined">
             Jump to user view
           </Button>
         </Stack>
