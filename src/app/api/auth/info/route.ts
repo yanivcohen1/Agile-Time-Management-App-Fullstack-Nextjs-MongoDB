@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { ApiError, handleError, json } from "@/lib/api/http";
+import { ApiError, handleApiError, json } from "@/lib/api/http";
 import { requireUser, toClientUser } from "@/lib/api/auth";
 
 export async function GET(request: NextRequest) {
@@ -11,6 +11,6 @@ export async function GET(request: NextRequest) {
 
     return json({ info: toClientUser(user) });
   } catch (error) {
-    return handleError(error);
+    return handleApiError(error);
   }
 }

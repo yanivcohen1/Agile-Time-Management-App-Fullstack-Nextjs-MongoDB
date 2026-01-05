@@ -8,8 +8,7 @@ import type { UserRole } from "@/types/auth";
 
 const USERS_ALLOWED_ROLES: UserRole[] = ["admin"];
 
-export async function GET(request: NextRequest) {
-  try {
+export async function handlerGET(request: NextRequest) {
     await requireUserWithRoles(request, USERS_ALLOWED_ROLES);
     const em = await getEntityManager();
 
@@ -18,7 +17,6 @@ export async function GET(request: NextRequest) {
     return json({
       users: users.map(toClientUser)
     });
-  } catch (error) {
-    return handleError(error);
-  }
 }
+
+export const GET = handleError(handlerGET);

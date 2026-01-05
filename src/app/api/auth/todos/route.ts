@@ -55,8 +55,7 @@ const buildFilter = (params: URLSearchParams, viewer: User): FilterQuery<Todo> =
   return filter;
 };
 
-export async function GET(request: NextRequest) {
-  try {
+export async function handlerGET(request: NextRequest) {
     const { user } = await requireUserWithRoles(request, TODO_ALLOWED_ROLES);
     const em = await getEntityManager();
     const viewerForQuery = user.role === "admin" ? user : em.getReference(User, user.id);
@@ -78,13 +77,9 @@ export async function GET(request: NextRequest) {
       limit,
       totalPages: Math.ceil(total / limit)
     });
-  } catch (error) {
-    return handleError(error);
-  }
 }
 
-export async function POST(request: NextRequest) {
-  try {
+export async function handlerPOST(request: NextRequest) {
     const { user } = await requireUserWithRoles(request, TODO_ALLOWED_ROLES);
     const payload = createTodoSchema.parse(await request.json());
     const em = await getEntityManager();
@@ -97,7 +92,7 @@ export async function POST(request: NextRequest) {
 
     await em.persistAndFlush(todo);
     return json({ todo: toTodoDTO(todo) }, { status: 201 });
-  } catch (error) {
-    return handleError(error);
-  }
 }
+
+export const GET = handleError(handlerGET);
+export const POST = handleError(handlerPOST);

@@ -6,8 +6,7 @@ import { getEntityManager } from "@/lib/db/client";
 import { User } from "@/lib/db/entities";
 import { handleError, json, ApiError } from "@/lib/api/http";
 
-export async function POST(request: NextRequest) {
-  try {
+export async function handlerPOST(request: NextRequest) {
     const payload = registerSchema.parse(await request.json());
     const em = await getEntityManager();
 
@@ -27,7 +26,6 @@ export async function POST(request: NextRequest) {
 
     const tokens = await issueTokensForUser({ id: user.id, email: user.email, name: user.name, role: user.role });
     return json(tokens, { status: 201 });
-  } catch (error) {
-    return handleError(error);
-  }
 }
+
+export const POST = handleError(handlerPOST);

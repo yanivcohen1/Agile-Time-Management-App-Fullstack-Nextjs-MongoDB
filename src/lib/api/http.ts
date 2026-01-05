@@ -10,7 +10,15 @@ export class ApiError extends Error {
 
 export const json = <T>(data: T, init?: ResponseInit) => NextResponse.json(data, init);
 
-export const handleError = (error: unknown) => {
+export const handleError = (handler: (...args: any[]) => any) => async (...args: any[]) => {
+    try {
+      return await handler(...args);
+    } catch (error) {
+      return await handleApiError(error);
+    }
+};
+
+export const handleApiError = (error: unknown) => {
   if (error instanceof ApiError) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
