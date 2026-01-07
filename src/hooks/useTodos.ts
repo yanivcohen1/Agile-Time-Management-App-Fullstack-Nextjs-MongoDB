@@ -20,12 +20,13 @@ export const useTodos = (filters: Partial<TodoFilterInput>) =>
   useQuery<TodosResponse>({
     queryKey: ["todos", filters],
     queryFn: async () => {
-      const params: Record<string, any> = { ...filters };
-      if (filters.dueStart) {
-        params.dueStart = format(filters.dueStart, "yyyy-MM-dd");
+      const { dueStart, dueEnd, ...rest } = filters;
+      const params: Record<string, string | number | boolean | undefined> = { ...rest };
+      if (dueStart) {
+        params.dueStart = format(dueStart, "yyyy-MM-dd");
       }
-      if (filters.dueEnd) {
-        params.dueEnd = endOfDay(filters.dueEnd).toISOString();
+      if (dueEnd) {
+        params.dueEnd = endOfDay(dueEnd).toISOString();
       }
       const { data } = await api.get("/api/auth/todos", { params });
       return data;

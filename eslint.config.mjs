@@ -30,6 +30,12 @@ const eslintConfig = [
       'no-undef': 'error',
     },
   },
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+    },
+  },
 ];
 
 export default eslintConfig;
