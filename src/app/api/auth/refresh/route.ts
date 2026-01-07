@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { refreshSchema } from "@/lib/validation/auth";
-import { handleError, json, ApiError } from "@/lib/api/http";
+import { handleApiError, json, ApiError } from "@/lib/api/http";
 import { verifyRefreshToken } from "@/lib/auth/jwt";
 import { getEntityManager } from "@/lib/db/client";
 import { RefreshToken } from "@/lib/db/entities";
@@ -39,6 +39,6 @@ export async function POST(request: NextRequest) {
 
     return json(tokens);
   } catch (error) {
-    return handleError(error);
+    return handleApiError(error);
   }
 }

@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { refreshSchema } from "@/lib/validation/auth";
-import { handleError, json, ApiError } from "@/lib/api/http";
+import { handleApiError, json, ApiError } from "@/lib/api/http";
 import { verifyRefreshToken } from "@/lib/auth/jwt";
 import { revokeRefreshToken } from "@/lib/auth/session";
 
@@ -17,6 +17,6 @@ export async function POST(request: NextRequest) {
     await revokeRefreshToken(tokenPayload.tokenId);
     return json({ success: true });
   } catch (error) {
-    return handleError(error);
+    return handleApiError(error);
   }
 }

@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { loginSchema } from "@/lib/validation/auth";
-import { handleError, json, ApiError } from "@/lib/api/http";
+import { handleApiError, json, ApiError } from "@/lib/api/http";
 import { getEntityManager } from "@/lib/db/client";
 import { User } from "@/lib/db/entities";
 import { verifyPassword } from "@/lib/auth/password";
@@ -30,6 +30,6 @@ export async function POST(request: NextRequest) {
     const tokens = await issueTokensForUser({ id: user.id, email: user.email, name: user.name, role: user.role });
     return json(tokens);
   } catch (error) {
-    return handleError(error);
+    return handleApiError(error);
   }
 }
