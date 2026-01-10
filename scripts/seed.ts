@@ -11,9 +11,9 @@ import { Todo } from "../src/lib/db/entities/Todo";
 import { RefreshToken } from "../src/lib/db/entities/RefreshToken";
 import { TODO_STATUSES } from "../src/types/todo";
 
-const ADMIN_EMAIL = (process.env.SEED_ADMIN_EMAIL ?? "demo@todo.dev").toLowerCase();
+const ADMIN_EMAIL = (process.env.SEED_ADMIN_EMAIL ?? "admin@todo.dev").toLowerCase();
 const ADMIN_NAME = process.env.SEED_ADMIN_NAME ?? process.env.SEED_DEMO_USER_NAME ?? "Demo Admin";
-const USER_EMAIL = (process.env.SEED_USER_EMAIL ?? "user1@todo.dev").toLowerCase();
+const USER_EMAIL = (process.env.SEED_USER_EMAIL ?? "user@todo.dev").toLowerCase();
 const USER_NAME = process.env.SEED_USER_NAME ?? "Workspace User";
 
 const demoTodos = [
