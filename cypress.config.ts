@@ -9,7 +9,9 @@ export default defineConfig({
       reportDir: 'cypress/reports',
       overwrite: true,
       html: true,
-      json: false
+      json: false,
+      embeddedScreenshots: true,
+      inlineAssets: true
     },
     setupNodeEvents(on, config) {
       if (process.env.CYPRESS_REPORTER === 'cypress-mochawesome-reporter') {
