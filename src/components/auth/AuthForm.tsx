@@ -36,14 +36,15 @@ export function AuthForm({ mode, isLoading, error, onSubmit, demoUsers }: Props)
     setValue
   } = useForm<LoginInput | RegisterInput>({
     resolver: zodResolver(schema),
-    defaultValues: useMemo(() => ({ email: "", password: "", name: "" }), [])
+    defaultValues: isRegister ? { name: "", email: "", password: "" } : { email: "", password: "" }
   });
 
   return (
-    <Box
+    <Stack
       component="form"
       onSubmit={handleSubmit(onSubmit)}
-      sx={{ width: "100%", display: "grid", gap: 2 }}
+      spacing={2}
+      sx={{ width: "100%" }}
     >
       <Typography variant="h4" fontWeight={700}>
         {isRegister ? "Create your account" : "Welcome back"}
@@ -107,6 +108,6 @@ export function AuthForm({ mode, isLoading, error, onSubmit, demoUsers }: Props)
       <Typography variant="caption" color="text.secondary">
           Tokens refresh automatically every 15 minutes.
       </Typography>
-    </Box>
+    </Stack>
   );
 }

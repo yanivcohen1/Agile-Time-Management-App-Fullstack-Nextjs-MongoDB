@@ -20,8 +20,8 @@ export default function LoginPage() {
               isLoading={isPending}
               error={error?.message ?? null}
               demoUsers={[
-                { label: "Log Demo User", email: "user@todo.dev", password: "ChangeMe123!" },
-                { label: "Log Demo Admin", email: "admin@todo.dev", password: "ChangeMe123!" },
+                { label: "Log Demo User", email: "user1@todo.dev", password: "ChangeMe123!" },
+                { label: "Log Demo Admin", email: "demo@todo.dev", password: "ChangeMe123!" },
               ]}
               onSubmit={async (values) => {
                 await mutateAsync(values);

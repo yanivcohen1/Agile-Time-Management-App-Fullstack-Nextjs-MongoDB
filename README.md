@@ -64,7 +64,34 @@ pnpm test:e2e          # Cypress end-to-end tests with reporter (runs `cross-env
 pnpm test:e2e:no-report # Cypress end-to-end tests without reporter (runs `cypress run --e2e --browser chrome`)
 ```
 
-Run `npx cypress install` once per environment to ensure the browser binaries required by `pnpm test:e2e` are available.
+### Docker
+
+You can run the entire stack (App + MongoDB) using Docker Compose:
+
+```bash
+pnpm docker-compose:up
+```
+
+This will:
+1. Start a MongoDB 3.4 container.
+2. Build and start the Next.js application in production mode.
+3. Expose the app at `http://localhost:3000`.
+
+To stop the containers:
+```bash
+pnpm docker-compose:down
+```
+
+To seed the database inside Docker:
+```bash
+pnpm docker-compose:seed
+```
+
+To build or run the app container individually:
+```bash
+pnpm docker:build    # Build the 'agile-todo-app' image
+pnpm docker:run      # Run the built image (requires external MongoDB)
+```
 
 ### Seeding
 

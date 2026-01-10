@@ -77,9 +77,14 @@ api.interceptors.response.use(
     const genericFallback = "An error occurred while processing your request.";
     const refreshFallback = "Unable to refresh your session. Please sign in again.";
 
+    const isLoginRequest = config?.url?.includes("/api/auth/login");
+
     if (response?.status === 401) {
-      if (!requestConfig || requestConfig.__isRetryRequest) {
+      if (!requestConfig || requestConfig.__isRetryRequest || isLoginRequest) {
         tokenStorage.clear();
+        if (!isLoginRequest && typeof window !== "undefined" && window.location.pathname !== "/login") {
+           window.location.href = "/login";
+        }
         notifyFromError(error, unauthorizedFallback);
         return Promise.reject(error);
       }
@@ -95,15 +100,14 @@ api.interceptors.response.use(
           return api(requestConfig);
         }
       } catch (refreshError) {
-        // Redirect to login on refresh failure
-        // window.location.href = '/login';
+        tokenStorage.clear();
+        if (typeof window !== "undefined" && window.location.pathname !== "/login") {
+           window.location.href = "/login";
+        }
+        return Promise.reject(refreshError);
       } finally {
         refreshPromise = null;
       }
-
-      tokenStorage.clear();
-      // Redirect to login on unauthorized
-      window.location.href = '/login';
     } else {
       notifyFromError(error, genericFallback);
     }

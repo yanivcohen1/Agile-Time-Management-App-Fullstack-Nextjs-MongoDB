@@ -1,0 +1,54 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/todo-app
+      - JWT_ACCESS_SECRET=your-access-secret-key-change-it
+      - JWT_REFRESH_SECRET=your-refresh-secret-key-change-it
+      - NODE_ENV=production
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - todo-network
+
+  mongodb:
+    image: mongo:4.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: "mongo --eval 'db.runCommand({ping:1}).ok' --quiet"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - todo-network
+
+  seed:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    environment:
+      - DATABASE_URL=mongodb://mongodb:27017/todo-app
+      - NODE_ENV=development
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    networks:
+      - todo-network
+    command: pnpm seed:db
+
+networks:
+  todo-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
