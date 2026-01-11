@@ -11,6 +11,8 @@ import { Todo } from "../src/lib/db/entities/Todo";
 import { RefreshToken } from "../src/lib/db/entities/RefreshToken";
 import { TODO_STATUSES } from "../src/types/todo";
 
+// config.clientUrl = process.env.DATABASE_URL ?? "mongodb://localhost:27017/todo-app";
+console.log(`Connecting to database... (${config.clientUrl})`);
 const ADMIN_EMAIL = (process.env.SEED_ADMIN_EMAIL ?? "admin@todo.dev").toLowerCase();
 const ADMIN_NAME = process.env.SEED_ADMIN_NAME ?? process.env.SEED_DEMO_USER_NAME ?? "Demo Admin";
 const USER_EMAIL = (process.env.SEED_USER_EMAIL ?? "user@todo.dev").toLowerCase();
