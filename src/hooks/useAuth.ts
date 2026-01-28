@@ -37,8 +37,7 @@ export const useLogin = () => {
     },
     onSuccess: (data) => {
       persistTokens(data.accessToken, data.refreshToken);
-      queryClient.invalidateQueries({ queryKey: ["session"] });
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.clear();
     }
   });
 };
@@ -52,8 +51,7 @@ export const useRegister = () => {
     },
     onSuccess: (data) => {
       persistTokens(data.accessToken, data.refreshToken);
-      queryClient.invalidateQueries({ queryKey: ["session"] });
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.clear();
     }
   });
 };
@@ -67,8 +65,7 @@ export const useLogout = () => {
     },
     onSettled: () => {
       clearTokens();
-      queryClient.invalidateQueries({ queryKey: ["session"] });
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      queryClient.clear();
     }
   });
 };

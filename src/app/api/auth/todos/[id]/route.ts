@@ -22,14 +22,14 @@ const loadTodo = async (id: string, viewer: User) => {
 type RouteContext = { params: Promise<{ id: string }> };
 
 export async function handlerGET(request: NextRequest, context: RouteContext) {
-    const { user } = await requireUserWithRoles(request, TODO_ALLOWED_ROLES);
+    const { user } = await requireUserWithRoles(TODO_ALLOWED_ROLES);
     const { id } = await context.params;
     const { todo } = await loadTodo(id, user);
     return json({ todo: toTodoDTO(todo) });
 }
 
 export async function handlerPUT(request: NextRequest, context: RouteContext) {
-    const { user } = await requireUserWithRoles(request, TODO_ALLOWED_ROLES);
+    const { user } = await requireUserWithRoles(TODO_ALLOWED_ROLES);
     const payload = updateTodoSchema.parse(await request.json());
     const { id } = await context.params;
     assert(!payload.id || payload.id === id, 400, "Todo id mismatch");
@@ -47,7 +47,7 @@ export async function handlerPUT(request: NextRequest, context: RouteContext) {
 }
 
 export async function handlerDELETE(request: NextRequest, context: RouteContext) {
-    const { user } = await requireUserWithRoles(request, TODO_ALLOWED_ROLES);
+    const { user } = await requireUserWithRoles(TODO_ALLOWED_ROLES);
     const { id } = await context.params;
     const { todo, em } = await loadTodo(id, user);
     await em.removeAndFlush(todo);

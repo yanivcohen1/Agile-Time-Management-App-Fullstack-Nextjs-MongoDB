@@ -9,7 +9,7 @@ import type { UserRole } from "@/types/auth";
 const USERS_ALLOWED_ROLES: UserRole[] = ["admin"];
 
 export async function handlerGET(request: NextRequest) {
-    await requireUserWithRoles(request, USERS_ALLOWED_ROLES);
+    await requireUserWithRoles(USERS_ALLOWED_ROLES);
     const em = await getEntityManager();
 
     const users = await em.find(User, {}, { orderBy: { createdAt: "desc" } });

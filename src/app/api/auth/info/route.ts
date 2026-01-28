@@ -4,7 +4,7 @@ import { requireUser, toClientUser } from "@/lib/api/auth";
 
 export async function GET(request: NextRequest) {
   try {
-    const { user } = await requireUser(request);
+    const { user } = await requireUser();
     if (user.role !== "admin") {
       throw new ApiError(403, "Admin privileges required");
     }

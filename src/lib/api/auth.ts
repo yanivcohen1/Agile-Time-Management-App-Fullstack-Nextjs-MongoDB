@@ -4,6 +4,7 @@ import { ApiError } from "./http";
 import { getEntityManager } from "../db/client";
 import { User } from "../db/entities";
 import type { SessionUser, UserRole } from "@/types/auth";
+import { headers } from 'next/headers';
 
 const TODO_ALLOWED_ROLES: UserRole[] = ["admin", "user"];
 
@@ -15,16 +16,17 @@ type NextRequestWithOptionalIp = NextRequest & {
   ip?: string | null;
 };
 
-const extractBearerToken = (request: NextRequest) => {
-  const header = request.headers.get("authorization");
+const extractBearerToken = async () => {
+  const headersList = await headers()
+  const header = headersList.get("authorization");
   if (!header) return null;
   const [scheme, token] = header.split(" ");
   if (scheme?.toLowerCase() !== "bearer" || !token) return null;
   return token;
 };
 
-export const requireUser = async (request: NextRequest): Promise<AuthenticatedContext> => {
-  const token = extractBearerToken(request);
+export const requireUser = async (): Promise<AuthenticatedContext> => {
+  const token = await extractBearerToken();
   if (!token) {
     throw new ApiError(401, "Missing or invalid authorization header");
   }
@@ -53,10 +55,9 @@ export const toClientUser = (user: User): SessionUser => ({
 });
 
 export const requireUserWithRoles = async (
-  request: NextRequest,
   allowedRoles: ReadonlyArray<UserRole> = TODO_ALLOWED_ROLES
 ): Promise<AuthenticatedContext> => {
-  const context = await requireUser(request);
+  const context = await requireUser();
   if (!allowedRoles.includes(context.user.role)) {
     throw new ApiError(403, "Insufficient permissions");
   }

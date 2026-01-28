@@ -56,7 +56,7 @@ const buildFilter = (params: URLSearchParams, viewer: User): FilterQuery<Todo> =
 };
 
 export async function handlerGET(request: NextRequest) {
-    const { user } = await requireUserWithRoles(request, TODO_ALLOWED_ROLES);
+    const { user } = await requireUserWithRoles(TODO_ALLOWED_ROLES);
     const em = await getEntityManager();
     const viewerForQuery = user.role === "admin" ? user : em.getReference(User, user.id);
     const where = buildFilter(request.nextUrl.searchParams, viewerForQuery);
@@ -80,7 +80,7 @@ export async function handlerGET(request: NextRequest) {
 }
 
 export async function handlerPOST(request: NextRequest) {
-    const { user } = await requireUserWithRoles(request, TODO_ALLOWED_ROLES);
+    const { user } = await requireUserWithRoles(TODO_ALLOWED_ROLES);
     const payload = createTodoSchema.parse(await request.json());
     const em = await getEntityManager();
     const ownerRef = em.getReference(User, user.id);
