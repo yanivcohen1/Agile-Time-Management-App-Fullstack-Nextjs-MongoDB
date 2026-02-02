@@ -15,6 +15,7 @@ import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import LoginRoundedIcon from "@mui/icons-material/LoginRounded";
 import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useLogout, useSession } from "@/hooks/useAuth";
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 export type DashboardSidebarProps = {
   onNavigate?: () => void;
@@ -155,9 +156,12 @@ export function DashboardSidebar({ onNavigate }: DashboardSidebarProps) {
     <Stack spacing={3} sx={{ minHeight: "100%" }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" px={1}>
         <Stack spacing={0.5}>
-          <Typography fontWeight={700} fontSize={20}>
-            FocusFlow
-          </Typography>
+          <Box display="flex" alignItems="center" gap={1}>
+            <TaskAltIcon color="primary" />
+            <Typography fontWeight={700} fontSize={20}>
+              FocusFlow
+            </Typography>
+          </Box>
           <Typography variant="caption" color="text.secondary">
             Stay on track
           </Typography>
