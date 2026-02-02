@@ -44,6 +44,7 @@
     "lucide-react": "^0.474.0",
     "mongodb": "5.8.1",
     "next": "16.1.6",
+    "notistack": "^3.0.2",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.7",
     "react": "19.2.0",
@@ -53,8 +54,7 @@
     "react-top-loading-bar": "^3.0.2",
     "react-transition-group": "^4.4.5",
     "reflect-metadata": "^0.2.2",
-    "zod": "^3.23.8",
-    "notistack": "^3.0.2"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
@@ -70,6 +70,7 @@
     "@types/react-dom": "^19",
     "@types/react-transition-group": "^4.4.12",
     "@vitest/coverage-v8": "^2.1.5",
+    "baseline-browser-mapping": "^2.9.19",
     "cross-env": "^10.1.0",
     "cypress": "^15.7.0",
     "cypress-mochawesome-reporter": "^4.0.2",
