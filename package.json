@@ -35,7 +35,7 @@
     "@primeuix/themes": "^1.2.5",
     "@tanstack/react-query": "^5.64.0",
     "@tanstack/react-query-devtools": "^5.64.0",
-    "axios": "^1.7.7",
+    "axios": "^1.13.5",
     "bcryptjs": "^2.4.3",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
