@@ -12,7 +12,7 @@
     "coverage": "vitest run --coverage",
     "seed:db": "ts-node --project tsconfig.scripts.json scripts/seed.ts",
     "test:e2e": "playwright test",
-    "test:e2e:report": "playwright test --reporter=html",
+    "test:e2e:report": "playwright show-report",
     "test:e2e:ui": "playwright test --ui",
     "docker:build": "docker build -t agile-todo-app .",
     "docker:run": "docker run -p 3000:3000 agile-todo-app",

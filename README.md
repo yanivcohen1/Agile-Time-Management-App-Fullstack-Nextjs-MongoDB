@@ -61,7 +61,7 @@ pnpm test:watch        # Vitest in watch mode
 pnpm coverage          # Vitest coverage report
 pnpm seed:db           # seed demo user/todos via MikroORM
 pnpm test:e2e          # Playwright end-to-end tests (runs `playwright test`)
-pnpm test:e2e:report   # Playwright end-to-end tests with HTML report (runs `playwright test --reporter=html`)
+pnpm test:e2e:report   # Show Playwright HTML test report (runs `playwright show-report`)
 pnpm test:e2e:ui       # Playwright end-to-end tests in UI mode (runs `playwright test --ui`)
 ```
 
@@ -185,7 +185,7 @@ pnpm test
 E2E tests are configured to run in Chromium. You can run them with or without HTML report generation:
 
 - **Run all tests**: `pnpm test:e2e`
-- **Run all tests with report**: `pnpm test:e2e:report`
+- **Show test report**: `pnpm test:e2e:report`
 - **Run in UI mode**: `pnpm test:e2e:ui`
 
 Reports include test results, screenshots of failures, and traces. The HTML report is useful for CI/CD pipelines and manual review.
