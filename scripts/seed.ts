@@ -50,7 +50,7 @@ const demoTodos = [
   },
   {
     title: "Write E2E Tests",
-    description: "Cover critical user flows with Cypress.",
+    description: "Cover critical user flows with Playwright.",
     status: TODO_STATUSES[1],
     duration: 8, // 8 hours
     tags: ["testing"]

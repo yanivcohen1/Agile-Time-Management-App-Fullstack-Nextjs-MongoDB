@@ -40,5 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .github/copilot-instructions.md
-cypress/reports/assets
-cypress/screenshots/
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

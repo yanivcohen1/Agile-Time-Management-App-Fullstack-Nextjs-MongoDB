@@ -1,6 +1,6 @@
 ## Time-Management-App
 
-Full-stack Next.js(React) 16 application built with Material UI, MikroORM, and MongoDB 3.4 and Cypress(E2E) and Vite. The app implements email/password authentication, short-lived JWT access tokens with refresh rotation, rate limiting, and filterable todo lists backed by React Query.
+Full-stack Next.js(React) 16 application built with Material UI, MikroORM, and MongoDB 3.4 and Playwright(E2E) and Vite. The app implements email/password authentication, short-lived JWT access tokens with refresh rotation, rate limiting, and filterable todo lists backed by React Query.
 
 ### Stack
 
@@ -15,7 +15,7 @@ Full-stack Next.js(React) 16 application built with Material UI, MikroORM, and M
 - React Hook Form + Zod validation
 - Lucide React (Icons)
 - Vitest unit tests 
-- Cypress for E2E tests
+- Playwright for E2E tests
 
 ### Features
 
@@ -29,7 +29,7 @@ Full-stack Next.js(React) 16 application built with Material UI, MikroORM, and M
 - Quick profile inspector on the Todo page that pings the API and surfaces the current name + role via snackbar.
 - Built-in rate limiting, password hashing, and JWT session utilities for secure APIs.
 - Responsive Material UI theme with dark/light toggle and reusable layout components.
-- End-to-end test coverage via Vitest + Cypress and seeded demo data for local workflows.
+- End-to-end test coverage via Vitest + Playwright and seeded demo data for local workflows.
 
 ### Prerequisites
 
@@ -60,8 +60,8 @@ pnpm test              # Vitest unit tests
 pnpm test:watch        # Vitest in watch mode
 pnpm coverage          # Vitest coverage report
 pnpm seed:db           # seed demo user/todos via MikroORM
-pnpm test:e2e          # Cypress end-to-end tests with reporter (runs `cross-env CYPRESS_REPORTER=cypress-mochawesome-reporter cypress run --e2e --browser chrome`)
-pnpm test:e2e:no-report # Cypress end-to-end tests without reporter (runs `cypress run --e2e --browser chrome`)
+pnpm test:e2e          # Playwright end-to-end tests (runs `playwright test`)
+pnpm test:e2e:report   # Playwright end-to-end tests with HTML report (runs `playwright test --reporter=html`)
 ```
 
 ### Docker
@@ -119,7 +119,7 @@ Use the Todo page "Show user info" button to verify which account is active; the
 
 ```
 . (repo root)
-├── cypress.config.ts      # Cypress runner configuration (E2E)
+├── playwright.config.ts   # Playwright runner configuration (E2E)
 ├── eslint.config.mjs      # ESLint config for the project
 ├── mikro-orm.config.ts    # MikroORM + Mongo config and seeding
 ├── next.config.ts         # Next.js runtime configuration
@@ -167,12 +167,12 @@ Use the Todo page "Show user info" button to verify which account is active; the
 │   │   ├── middleware/    # Rate limit, auth guards, helpers
 │   │   └── utils/         # Shared server utilities (serializers, validators)
 ├── docs/                  # Architecture notes and technical overviews
-├── cypress/               # E2E specs, reports, screenshots
+├── e2e/                   # Playwright E2E specs
 ```
 
 ## Testing
 
-The project includes unit tests with Jest and end-to-end (E2E) tests with Cypress.
+The project includes unit tests with Vitest and end-to-end (E2E) tests with Playwright.
 
 ### Unit Tests
 Run unit tests using:
@@ -181,12 +181,13 @@ pnpm test
 ```
 
 ### End-to-End Tests
-E2E tests are configured to run in Chrome browser. You can run them with or without HTML report generation:
+E2E tests are configured to run in Chromium. You can run them with or without HTML report generation:
 
-- **With HTML Report**: `pnpm test:e2e` generates an HTML report at `cypress/reports/index.html` (overwrites previous reports).
-- **Without Report**: `pnpm test:e2e:no-report` runs tests without generating any reports.
+- **Run all tests**: `pnpm test:e2e`
+- **Run all tests with report**: `pnpm test:e2e:report`
+- **Run in UI mode**: `pnpm exec playwright test --ui`
 
-Reports include test results, screenshots of failures, and detailed logs. The HTML report is useful for CI/CD pipelines and manual review.
+Reports include test results, screenshots of failures, and traces. The HTML report is useful for CI/CD pipelines and manual review.
 
 ## Main Page
 
