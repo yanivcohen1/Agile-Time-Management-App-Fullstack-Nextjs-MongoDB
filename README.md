@@ -56,6 +56,7 @@ pnpm dev               # run Next.js in development mode
 pnpm build             # production build
 pnpm start             # serve the production build
 pnpm lint              # Next.js lint (ESLint)
+pnpm audit             # run security audit using pnpm audit
 pnpm test              # Vitest unit tests
 pnpm test:watch        # Vitest in watch mode
 pnpm coverage          # Vitest coverage report
